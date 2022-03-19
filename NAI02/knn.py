@@ -70,19 +70,21 @@ def main():
 
     print('dim: ' + str(dim))
 
-    for i in range(len(testingSet)):
-        distances = [(calcDistance(item, testingSet[i], size=dim), item[dim])
+    randomSample = random.sample(testingSet, 10)
+
+    for i in range(len(randomSample)):
+        distances = [(calcDistance(item, randomSample[i], size=dim), item[dim])
                      for item in trainingSet]
         distances.sort(key=lambda tup: tup[0])
         print('\n')
         klas = findClosest(k, distances)
-        test = random.sample(testingSet, 1)[0][dim]
+        test = randomSample[i][dim]
         print("Classification: " + klas)
         print("Test: " + test)
         if(klas == test):
             accuracy += 1
 
-    print("\nAccuracy: " + str(100*float(accuracy)/float(len(testingSet)))+"%")
+    print("\nAccuracy: " + str(100*float(accuracy)/float(len(randomSample)))+"%")
 
 
 if __name__ == '__main__':
